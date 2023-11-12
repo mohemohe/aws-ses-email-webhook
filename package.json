@@ -1,0 +1,22 @@
+{
+  "name": "aws-ses-email-webhook",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.126",
+    "@types/encoding-japanese": "^2.0.4",
+    "biome": "^0.3.3",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "start:server": "go run ./server/"
+  },
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "encoding-japanese": "^2.0.0",
+    "source-map-support": "^0.5.21"
+  }
+}
