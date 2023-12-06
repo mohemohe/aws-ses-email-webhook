@@ -45,7 +45,7 @@ export const handler = async (event: SNSEvent, context: Context) => {
 const handleMail = async (mail: SESMail, body: string) => {
   console.log("mail:", mail);
   console.log("body:", body);
-  const matches = config.rules.filter((rule) => {
+  const match = config.rules.find((rule) => {
     if (filterCondition(rule.incoming.from, mail.source)) {
       return true;
     }
@@ -61,9 +61,8 @@ const handleMail = async (mail: SESMail, body: string) => {
     return false;
   });
 
-  for (const match of matches) {
-    console.log("match:", match);
-
+  console.log("match:", match);
+  if (match) {
     let endpoint = match.outgoing.endpoint;
     let payload;
     if (match.outgoing.type === "discord") {
@@ -75,7 +74,7 @@ const handleMail = async (mail: SESMail, body: string) => {
     }
     if (!payload) {
       console.log("empty payload. skip.");
-      continue;
+      return;
     }
 
     console.log("endpoint:", endpoint);
