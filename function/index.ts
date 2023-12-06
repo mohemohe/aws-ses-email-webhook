@@ -46,10 +46,10 @@ const handleMail = async (mail: SESMail, body: string) => {
   console.log("mail:", mail);
   console.log("body:", body);
   const match = config.rules.find((rule) => {
-    if (filterCondition(rule.incoming.from, mail.source)) {
+    if (mail.commonHeaders.from?.filter((from) => filterCondition(rule.incoming.from, from))?.length !== 0) {
       return true;
     }
-    if (mail.destination.filter((destination) => filterCondition(rule.incoming.to, destination)).length > 0) {
+    if (mail.destination.filter((destination) => filterCondition(rule.incoming.to, destination)).length !== 0) {
       return true;
     }
     if (filterCondition(rule.incoming.title, mail.commonHeaders.subject)) {
@@ -135,7 +135,7 @@ const createDiscordPayload = (mail: SESMail, body: string, rule: OutgoingRule): 
         fields: [
           {
             name: "From",
-            value: mail.source || "-",
+            value: mail.commonHeaders.from?.join(",") || "-",
           },
           {
             name: "To",
