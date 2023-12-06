@@ -11,9 +11,6 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "scripts": {
-    "start:server": "go run ./server/"
-  },
   "dependencies": {
     "aws-lambda": "^1.0.7",
     "encoding-japanese": "^2.0.0",
